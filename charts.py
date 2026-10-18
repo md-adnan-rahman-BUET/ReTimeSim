@@ -76,29 +76,46 @@ def network_figure(model, height=470):
     return _layout(fig, height)
 
 
-def timeline_figure(baseline, schedule=None, highlight=None, height=300):
-    """Working hours of each institute: baseline (grey) and the new schedule (coloured)."""
+BASELINE_BAR = "#d3d1cb"      # light grey for today's hours
+OTHER_BAR = "#9ec5f4"         # light blue for institutes not being edited right now
+
+
+def text_color(hex_color):
+    """Dark text on light bars, white text on dark bars (WCAG relative luminance)."""
+    channels = []
+    for i in (1, 3, 5):
+        c = int(hex_color[i:i + 2], 16) / 255
+        channels.append(c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4)
+    luminance = 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]
+    return "#1a1a19" if luminance > 0.18 else "#ffffff"
+
+
+def timeline_figure(baseline, schedule=None, highlight=None, height=420):
+    """Working hours of each institute: today (grey) and the new schedule (coloured)."""
     labels = [f"{E.GROUP_ICONS[g]} {E.GROUP_LABELS[g]}" for g in E.GROUPS][::-1]
     groups = E.GROUPS[::-1]
 
-    def bar(sched, name, colors, opacity=1.0):
+    def bar(sched, name, colors):
         starts = [E.parse_clock(sched[g]["start"]) / 60 for g in groups]
         lengths = [E.duration_minutes(sched[g]) / 60 for g in groups]
         text = [f"{sched[g]['start']}–{sched[g]['end']}" for g in groups]
         return go.Bar(y=labels, x=lengths, base=starts, orientation="h", name=name, text=text,
                       textposition="inside", insidetextanchor="middle", marker_color=colors,
-                      opacity=opacity, hovertemplate="%{y}: %{text}<extra>" + name + "</extra>")
+                      textfont=dict(size=13, color=[text_color(c) for c in colors]),
+                      hovertemplate="%{y}: %{text}<extra>" + name + "</extra>")
 
     fig = go.Figure()
     if schedule is None:
-        fig.add_trace(bar(baseline, "Baseline", [E.COLORS[g] for g in groups]))
+        fig.add_trace(bar(baseline, "Today", [E.COLORS[g] for g in groups]))
     else:
-        fig.add_trace(bar(baseline, "Baseline", SCENARIO_COLORS["Baseline"], opacity=0.55))
-        colors = [E.COLORS[g] if (highlight is None or g == highlight) else "#9ec5f4" for g in groups]
+        fig.add_trace(bar(baseline, "Today", [BASELINE_BAR] * len(groups)))
+        colors = [E.COLORS[g] if (highlight is None or g == highlight) else OTHER_BAR for g in groups]
         fig.add_trace(bar(schedule, "Your schedule", colors))
-        fig.update_layout(barmode="group", bargap=0.25, bargroupgap=0.08)
-    _clock_axis(fig, 6, 21)
-    fig.update_yaxes(showgrid=False)
+        fig.update_layout(barmode="group", bargap=0.22, bargroupgap=0.06)
+    fig.update_xaxes(tickvals=list(range(6, 22, 2)), ticktext=[f"{h:02d}:00" for h in range(6, 22, 2)],
+                     range=[6, 21], tickfont=dict(size=12))
+    fig.update_yaxes(showgrid=False, tickfont=dict(size=14))
+    fig.update_layout(uniformtext=dict(minsize=12, mode="show"), legend_font=dict(size=13))
     return _layout(fig, height, legend=schedule is not None)
 
 

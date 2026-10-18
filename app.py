@@ -17,7 +17,7 @@ st.set_page_config(page_title="ReTimeSim Â· Staggered schedules", page_icon="ðŸš
 
 st.markdown("""
 <style>
-.block-container {padding-top: 2.2rem; max-width: 1280px;}
+.block-container {padding-top: 4rem; max-width: 1280px;}
 .hero {padding: 2rem 2.4rem; border-radius: 18px; margin-bottom: 1.4rem;
        background: linear-gradient(120deg, #184f95 0%, #2a78d6 60%, #1baf7a 140%); color: #fff;}
 .hero h1 {color: #fff; margin: 0; font-size: 2.6rem; line-height: 1.1;}
@@ -178,8 +178,8 @@ def page_home():
 def page_schedule():
     idx = ss.idx
     g = E.GROUPS[idx]
-    st.progress((idx + 1) / len(E.GROUPS), text=f"Institute {idx + 1} of {len(E.GROUPS)}")
     st.header("Choose new start times")
+    st.progress((idx + 1) / len(E.GROUPS), text=f"Institute {idx + 1} of {len(E.GROUPS)}")
     st.caption("Move the slider to set when this institution starts. Its working hours stay the same, "
                "so the end time moves with it. Nothing is simulated until you submit.")
 
@@ -211,7 +211,7 @@ def page_schedule():
 
     with right:
         st.markdown("##### Your schedule so far")
-        show(C.timeline_figure(E.BASELINE, E.schedule_from_starts(ss.starts), highlight=g, height=340))
+        show(C.timeline_figure(E.BASELINE, E.schedule_from_starts(ss.starts), highlight=g, height=460))
 
     back, _, forward = st.columns([1, 2, 1])
     if idx == 0:
@@ -250,7 +250,7 @@ def page_review():
         st.metric("Most institutions starting at the same time", busiest_yours,
                   f"{busiest_yours - busiest_today:+d} vs today", delta_color="inverse", border=True)
     with right:
-        show(C.timeline_figure(E.BASELINE, schedule, height=330))
+        show(C.timeline_figure(E.BASELINE, schedule, height=460))
 
     problems = E.validate_schedule(schedule)
     for problem in problems:
@@ -381,7 +381,7 @@ def page_results():
                      column_config={"Today": st.column_config.NumberColumn(format="%.1f"),
                                     "Your schedule": st.column_config.NumberColumn(format="%.1f")})
     with tabs[5]:
-        show(C.timeline_figure(E.BASELINE, mine["schedule"], height=330))
+        show(C.timeline_figure(E.BASELINE, mine["schedule"], height=460))
     with tabs[6]:
         show(C.network_figure(model))
 

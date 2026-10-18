@@ -1,6 +1,6 @@
 # 🚦 ReTimeSim — What if the whole city didn't start work at the same time?
 
-**[▶ Open the live app](https://YOUR-APP-NAME.streamlit.app)** · a Python × SUMO traffic simulation dashboard
+**[▶ Open the live app: retimesim.streamlit.app](https://retimesim.streamlit.app/)** · a Python × SUMO traffic simulation dashboard
 
 ![Morning traffic replay: today's schedule vs a staggered schedule](results/replay_example.gif)
 
@@ -52,7 +52,7 @@ The app opens in your browser. SUMO is installed by `requirements.txt` (pip pack
 1. Push this folder to a GitHub repository.
 2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub and click **Create app**.
 3. Choose the repository, branch `main` and main file `app.py`, then click **Deploy**.
-4. Replace `YOUR-APP-NAME` in the link at the top of this README with your app's address.
+4. `packages.txt` installs the few Linux system libraries SUMO needs on the server; keep it in the repository.
 
 ## How it works
 
