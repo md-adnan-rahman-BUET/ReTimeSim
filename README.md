@@ -47,12 +47,6 @@ streamlit run app.py
 
 The app opens in your browser. SUMO is installed by `requirements.txt` (pip package `eclipse-sumo`). If you also have SUMO installed with `SUMO_HOME` set, the app uses that installation instead, and the **SUMO-GUI** button opens SUMO's own window.
 
-## Put it online (free)
-
-1. Push this folder to a GitHub repository.
-2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub and click **Create app**.
-3. Choose the repository, branch `main` and main file `app.py`, then click **Deploy**.
-4. `packages.txt` installs the few Linux system libraries SUMO needs on the server; keep it in the repository.
 
 ## How it works
 
@@ -76,4 +70,4 @@ To rebuild the model and the precomputed results: `python engine.py`
 
 ## Note
 
-The city and population are synthetic. ReTimeSim shows the mechanism, how spreading start times flattens the peak, and is not a forecast for a real city. It was made for Stanford's Code in Place.
+The city and population are synthetic. ReTimeSim shows the mechanism, how spreading start times flattens the peak, and is not a forecast for a real city. It was made for Stanford's Code in Place 26 Project Submission.
