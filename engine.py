@@ -184,7 +184,11 @@ def setup_sumo():
     if bin_dir not in os.environ["PATH"].split(os.pathsep):
         os.environ["PATH"] = bin_dir + os.pathsep + os.environ["PATH"]
 
-    version = subprocess.run(["sumo", "--version"], capture_output=True, text=True).stdout.splitlines()[0]
+    check = subprocess.run(["sumo", "--version"], capture_output=True, text=True)
+    if check.returncode != 0 or not check.stdout.strip():
+        # On Linux servers this usually means missing system libraries (see packages.txt)
+        raise RuntimeError(f"SUMO was found in {home} but could not start:\n{check.stderr.strip()}")
+    version = check.stdout.splitlines()[0]
     has_screen = sys.platform in ("win32", "darwin") or bool(os.environ.get("DISPLAY"))
     gui = shutil.which("sumo-gui") is not None and has_screen
     return {"home": home, "version": version.replace("Eclipse SUMO sumo ", "SUMO "), "gui": gui}
