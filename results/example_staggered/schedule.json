@@ -1,0 +1,22 @@
+{
+  "school": {
+    "start": "07:30",
+    "end": "14:30"
+  },
+  "industry": {
+    "start": "08:00",
+    "end": "17:00"
+  },
+  "government": {
+    "start": "09:00",
+    "end": "17:00"
+  },
+  "private": {
+    "start": "10:00",
+    "end": "18:00"
+  },
+  "university": {
+    "start": "10:00",
+    "end": "19:00"
+  }
+}

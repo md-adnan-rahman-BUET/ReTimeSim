@@ -1,0 +1,21 @@
+{
+  "trips": 10000,
+  "completed": 10000,
+  "teleports": 10,
+  "avg_travel_time_min": 6.73,
+  "avg_delay_min": 3.7,
+  "morning_avg_delay_min": 4.67,
+  "evening_avg_delay_min": 2.72,
+  "total_delay_veh_h": 616.0,
+  "avg_waiting_min": 2.35,
+  "avg_speed_kmh": 19.5,
+  "peak_vehicles": 821,
+  "peak_time": "09:57",
+  "max_queue": 66,
+  "delay_school_min": 2.46,
+  "delay_industry_min": 7.1,
+  "delay_government_min": 1.54,
+  "delay_private_min": 4.46,
+  "delay_university_min": 2.1,
+  "schedule": "school 07:30-14:30 | industry 08:00-17:00 | government 09:00-17:00 | private 10:00-18:00 | university 10:00-19:00"
+}

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+  <input>
+    <net-file value="..\..\model\network.net.xml" />
+    <route-files value="trips.rou.xml" />
+  </input>
+  <time>
+    <begin value="21600" />
+    <end value="75600" />
+    <step-length value="1.0" />
+  </time>
+  <processing>
+    <time-to-teleport value="300" />
+    <ignore-route-errors value="true" />
+  </processing>
+  <routing>
+    <device.rerouting.probability value="1" />
+    <device.rerouting.period value="120" />
+  </routing>
+  <report>
+    <no-step-log value="true" />
+    <no-warnings value="true" />
+  </report>
+</configuration>

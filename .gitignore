@@ -1,0 +1,8 @@
+# user runs are created by the app and cleaned up automatically
+runs/
+__pycache__/
+*.pyc
+
+# local Python environment and PyCharm settings (only work on this computer)
+.venv/
+.idea/
